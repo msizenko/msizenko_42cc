@@ -1,0 +1,6 @@
+*~
+#*
+.#*
+*.pyc
+docs/_build/*
+msizenko_42cc/conf/local/*.py
