@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import patterns, url, include
 
 urlpatterns = patterns('',
-    # url('', include('{{ project_name }}.apps.'))
+    url('', include('msizenko_42cc.apps.assignment.urls'))
 )

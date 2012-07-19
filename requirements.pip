@@ -6,3 +6,4 @@
 
 django==1.4
 south==0.7.5
+django-nose==1.1

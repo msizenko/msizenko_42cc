@@ -34,6 +34,8 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'msizenko_42cc.apps.assignment',
 )
 
 #==============================================================================
