@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 USERNAME = 'msizenko'
-EMAIL = 'msizneko@gmail.com'
+EMAIL = 'msizenko@gmail.com'
 
 class TestPageTest(TestCase):
     
@@ -16,6 +16,9 @@ class TestPageTest(TestCase):
 class PersonTest(TestCase):
     fixtures = ['initial_data.json']
     
+    def setUp(self):
+        self.client = client.Client()
+    
     def create_test(self):
         # user should been created from fixtures
         self.assertIsNotNone(User.objects.get(username=USERNAME))
@@ -24,5 +27,10 @@ class PersonTest(TestCase):
     
         # user's profile should been created automaticaly            
         self.assertIsNotNone(user.userprofile)
-
+        
+    def user_page_test(self):
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, USERNAME)
+        self.assertContains(response, EMAIL)        
         
