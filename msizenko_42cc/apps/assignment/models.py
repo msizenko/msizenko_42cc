@@ -16,7 +16,7 @@ class Contact(models.Model):
     )
     type = models.CharField(max_length=2, choices=TYPE_CHOICES)
     value = models.CharField(max_length=254)
-    user = models.ForeignKey(UserProfile)
+    user = models.ForeignKey(User)
     
     class Meta:
         verbose_name = "contact"
