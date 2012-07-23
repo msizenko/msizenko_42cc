@@ -1,0 +1,37 @@
+[
+    {
+        "pk": 1,
+        "model": "auth.user",
+        "fields": {
+            "username": "msizenko",
+            "first_name": "Marina",
+            "last_name": "Sizenko",
+            "is_active": true,
+            "is_superuser": true,
+            "is_staff": true,
+            "last_login": "2012-07-23T08:13:00.795Z",
+            "groups": [],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$10000$nnRVilNhJzL4$DbZspkLd37X3eOkL96ojjLTLOwNS3GbhtQlvOG/8lKQ=",
+            "email": "msizenko@gmail.com",
+            "date_joined": "2012-07-20T07:18:56.607Z"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "assignment.userprofile",
+        "fields": {
+            "bio": "1. Education\r\n2006-2012 Chernihiv State Technological University - Master Degree of\r\nComputer Science.\r\n\r\n2. Experience\r\nAugust 2010 - August 2011. Web developer at Acropolium.\r\nSuccessfully finished two projects and continuously supported one project.\r\nImproved performance of existing web application and implemented new features.                                          \r\nDeeply explored the internals of ORM library and created patches for it.\r\nTechnologies used: php, Zend framework, Doctrina, JQuery, PostgreSQL.\r\n",
+            "date_of_birth": "1988-10-05"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "assignment.contact",
+        "fields": {
+            "type": "SK",
+            "user": 1,
+            "value": "msizenko"
+        }
+    }
+]

@@ -27,6 +27,7 @@ INSTALLED_APPS = (
     # 'msizenko_42cc.apps.',
 
     'south',
+    'annoying',
 
     'django.contrib.auth',
     'django.contrib.contenttypes',
