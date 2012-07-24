@@ -1,4 +1,6 @@
 from django.test import TestCase, client
+from msizenko_42cc.apps.assignment.models import RequestLog
+from msizenko_42cc import settings
 
 
 USERNAME = 'msizenko'
@@ -39,10 +41,16 @@ class MiddlewareRequestTest(TestCase):
         self.client = client.Client()
         
     def stored_request_test(self):
-        from msizenko_42cc.apps.assignment.models import RequestLog
         self.assertEqual(RequestLog.objects.all().count(), 0)
         self.client.get('/')
         self.assertIsNotNone(RequestLog.objects.get(method='GET'))
-
-    
         
+class ContextProcessorTest(TestCase):
+    
+    def setUp(self):
+        self.client = client.Client()
+        
+    def settings_test(self):
+        response = self.client.get('/')
+        # check if reqest context contains settings        
+        self.assertEqual(response.context['settings'], settings)
