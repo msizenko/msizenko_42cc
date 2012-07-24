@@ -11,7 +11,7 @@ TEMPLATE_DEBUG = DEBUG
 SITE_ID = 1
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Kiev'
 USE_TZ = True
 USE_I18N = True
 USE_L10N = True
@@ -104,6 +104,7 @@ TEMPLATE_CONTEXT_PROCESSORS += (
 #==============================================================================
 
 MIDDLEWARE_CLASSES += (
+    'msizenko_42cc.apps.assignment.middleware.RequestLoggerMiddleware',
 )
 
 #==============================================================================

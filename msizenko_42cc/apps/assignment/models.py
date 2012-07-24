@@ -23,7 +23,18 @@ class Contact(models.Model):
         
     def __unicode__(self):
         return "%s: %s" % (self.get_type_display(), self.value)
-    
-    
 
+class RequestLog(models.Model):
+    date = models.DateTimeField(auto_now_add=True)
+    method = models.CharField(max_length=6)
+    path = models.CharField(max_length=255)
+    user = models.ForeignKey(User, blank=True,  null=True)
+    user_agent = models.CharField(max_length=255)
     
+    class Meta:
+        ordering = ['date']
+        verbose_name = "logged request"
+        
+    def __unicode__(self):
+        return '%s %s %s' %(self.date, self.method, self.path)
+        
