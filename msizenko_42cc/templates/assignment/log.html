@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block head_title %}42 Coffee Cups Test Assignment{% endblock head_title %}
+
+{% block content %} 
+  <header id="header-main">List logged request:</header>
+  <section id='log'>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Method</th>
+          <th>Path</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for request in requests %}
+          <tr>
+            <td>{{ request.date|date:"Y-m-d H:i:s" }}</td>
+            <td>{{ request.method }}</td>
+            <td>{{ request.path }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>    
+  </section>
+  <nav>
+    <a href="{% url assignment-index %}">Back</a>
+  <nav>
+{% endblock content %}
+
+
+

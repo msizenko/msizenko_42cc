@@ -22,6 +22,9 @@
     <header>Biography:</header>
     {{ user.userprofile.bio|linebreaks }}
   </section>
+  <nav>
+    <a href="{% url assignment-request-log %}">Request's log</a>
+  <nav>
 {% endblock content %}
 
 

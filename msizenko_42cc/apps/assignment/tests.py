@@ -1,5 +1,4 @@
 from django.test import TestCase, client
-from django.contrib.auth.models import User
 
 
 USERNAME = 'msizenko'
@@ -14,12 +13,12 @@ class TestPageTest(TestCase):
         self.assertContains(response, 'Hello world!')
         
 class PersonTest(TestCase):
-    fixtures = ['initial_data.json']
     
     def setUp(self):
         self.client = client.Client()
     
     def create_test(self):
+        from django.contrib.auth.models import User
         # user should been created from fixtures
         self.assertIsNotNone(User.objects.get(username=USERNAME))
         user = User.objects.get(username=USERNAME)
@@ -33,4 +32,17 @@ class PersonTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, USERNAME)
         self.assertContains(response, EMAIL)        
+        
+class MiddlewareRequestTest(TestCase):
+    
+    def setUp(self):
+        self.client = client.Client()
+        
+    def stored_request_test(self):
+        from msizenko_42cc.apps.assignment.models import RequestLog
+        self.assertEqual(RequestLog.objects.all().count(), 0)
+        self.client.get('/')
+        self.assertIsNotNone(RequestLog.objects.get(method='GET'))
+
+    
         

@@ -7,6 +7,12 @@ header {
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
+a:link, a:visited, a:hover, a:active {
+    color: blue;
+    text-decoration: underline;
+    font-size: 1.6em;
+}
+
 #header-main {
     font-size: 2.5em;
 }
@@ -32,4 +38,21 @@ header {
     font-size: 1.2em;
 }
 
+nav {
+    margin-top: 2.5em;
+}
 
+#log {
+    margin-top: 2.5em;
+    display: block;
+    font-size: 1.4em;
+}
+
+th {
+    font-weight: 600;
+    font-size: 1.2em;
+}
+
+th, td {
+    padding: .5em .5em .1em 0;
+}
