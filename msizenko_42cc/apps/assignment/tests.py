@@ -39,7 +39,7 @@ class MiddlewareRequestTest(TestCase):
         self.client = client.Client()
         
     def stored_request_test(self):
-        from django.contrib.auth.models import RequestLog
+        from msizenko_42cc.apps.assignment.models import RequestLog
         self.assertEqual(RequestLog.objects.all().count(), 0)
         self.client.get('/')
         self.assertIsNotNone(RequestLog.objects.get(method='GET'))
