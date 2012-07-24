@@ -97,6 +97,7 @@ TEMPLATE_DIRS = (
 )
 
 TEMPLATE_CONTEXT_PROCESSORS += (
+    'msizenko_42cc.apps.assignment.context_processors.settings',
 )
 
 #==============================================================================
