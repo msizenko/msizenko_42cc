@@ -32,7 +32,7 @@ class RequestLog(models.Model):
     user_agent = models.CharField(max_length=255)
     
     class Meta:
-        ordering = ['date']
+        ordering = ['-date']
         verbose_name = "logged request"
         
     def __unicode__(self):

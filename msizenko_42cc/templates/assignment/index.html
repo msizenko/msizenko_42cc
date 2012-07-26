@@ -2,30 +2,50 @@
 
 {% block head_title %}42 Coffee Cups Test Assignment{% endblock head_title %}
 
+{% block menu %}
+    <a href="{% url assignment-request-log %}">request's list</a>
+    {% if user.is_authenticated %}
+        <a href="{% url assignment-logout %}">logout</a>    
+    {% else %}    
+        <a href="{% url assignment-login %}">login</a>                
+    {% endif %}    
+{% endblock %}
+    
+ 
+{% block header %}
+    42 Coffee Cups Test Assignment by {{ person.first_name }} {{ person.last_name }}
+{% endblock %}    
+
 {% block content %} 
-  <header id="header-main">42 Coffee Cups Test Assignment by {{ user.first_name }} {{ user.last_name }}</header>
-  <section id="personal-info">
-    <p id="date-of-birth">Date of birth: <time datetime="{{user.userprofile.date_of_birth|date:"Y-m-d"}}">{{user.userprofile.date_of_birth}}</time></p>
+  <div id="brief-info">
+    <p id="date-of-birth">Date of birth: 
+      <time datetime="{{person.userprofile.date_of_birth|date:"Y-m-d"}}">
+        {{user.userprofile.date_of_birth}}
+      </time>
+    </p>
     <address id="contacts">
-      <header>Contacts:</header>
-      {% if user.email %}
-        <p>email: {{ user.email }}</p>
+      <h1>Contacts:</h1>
+      {% if person.email %}
+           <p>
+               <label for="email">email: </label>
+               <span id="email">{{ person.email }}</span>
+           </p>
       {% endif %}
-      {% for contact in contacts  %}
-        <p>{{ contact }}</p>
+      {% for c in contacts %}
+          <p>
+              <label for="{{ c.type }}-{{ c.pk }}">{{ c.get_type_display }}: </label>
+              <span id="{{ c.type }}-{{ c.pk }}">{{ c.value }}</span>
+          </p>
       {% empty %}
         <p>List of contacts is empty.</p>
       {% endfor %}
     </addres>  
-  </section>
-  <section id='bio'>
-    <header>Biography:</header>
-    {{ user.userprofile.bio|linebreaks }}
-  </section>
-  <nav>
-    <a href="{% url assignment-request-log %}">Request's log</a>
-  <nav>
-{% endblock content %}
+  </div>
+  <div id='bio'>
+    <h1>Biography:</h1>
+    {{ person.userprofile.bio|linebreaks }}
+  </div>
+{% endblock  %}
 
 
 

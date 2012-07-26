@@ -10,11 +10,22 @@
     <![endif]-->
 </head>
 <body>
-
 <div id="container">
-    {% block content %}
-    {% endblock %}
+  <nav id="menu">
+    <div id="menu-list">
+        {% block menu %}
+        {% endblock %}
+    </div>
+    <div>&nbsp;</div>
+  </nav>    
+    <header id="header">
+        {% block header %}
+        {% endblock %}
+    </header>  
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
 </div>
-
 </body>
 </html>

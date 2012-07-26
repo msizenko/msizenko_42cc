@@ -6,13 +6,6 @@ from msizenko_42cc import settings
 USERNAME = 'msizenko'
 EMAIL = 'msizenko@gmail.com'
 
-class TestPageTest(TestCase):
-    
-    def test_page(self):
-        c = client.Client()
-        response = c.get('/test/')
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Hello world!')
         
 class PersonTest(TestCase):
     
