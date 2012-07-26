@@ -56,6 +56,11 @@
     line-height: 1.5em;
 }
 
+.errors {
+    padding: .5em;
+    border: 1px solid red;
+}
+
 #login-form p{
     margin: .5em 0;
 }
