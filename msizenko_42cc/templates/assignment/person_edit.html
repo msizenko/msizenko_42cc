@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block head_title %}Edit person data{% endblock head_title %}
+
+{% block menu %}
+    <a href="{% url assignment-request-log %}">request's list</a>
+    <a href="{% url assignment-index %}">main</a>    
+    <a href="{% url assignment-logout %}">logout</a>    
+{% endblock %}
+    
+ 
+{% block header %}
+    Edit personal data
+{% endblock %}    
+
+{% block content %} 
+        <form enctype="multipart/form-data" method="post" 
+              action="{% url assignment-person-edit  %}">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+            {{ contact_set.as_p }}
+            <input type="submit" value="Save" />
+        </form>
+{% endblock  %}

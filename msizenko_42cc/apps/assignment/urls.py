@@ -6,6 +6,7 @@ from msizenko_42cc.apps.assignment.models import RequestLog
 
 urlpatterns = patterns('msizenko_42cc.apps.assignment.views',
     url(r'^$', 'index', name='assignment-index'),
+    url(r'^person-edit/$', 'edit', name='assignment-person-edit'),                       
     url(r'^request-log/$', ListView.as_view(
             queryset=RequestLog.objects.all()[:10],
             context_object_name='requests',
@@ -20,3 +21,4 @@ urlpatterns += patterns('django.contrib.auth.views',
         name='assignment-login'),
     url(r'^logout/$', 'logout', {'next_page': '/'}, name='assignment-logout'),
 )
+

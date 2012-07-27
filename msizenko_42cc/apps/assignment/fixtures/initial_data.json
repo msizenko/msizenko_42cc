@@ -22,7 +22,8 @@
         "model": "assignment.userprofile",
         "fields": {
             "bio": "1. Education\r\n2006-2012 Chernihiv State Technological University - Master Degree of\r\nComputer Science.\r\n\r\n2. Experience\r\nAugust 2010 - August 2011. Web developer at Acropolium.\r\nSuccessfully finished two projects and continuously supported one project.\r\nImproved performance of existing web application and implemented new features.                                          \r\nDeeply explored the internals of ORM library and created patches for it.\r\nTechnologies used: php, Zend framework, Doctrina, JQuery, PostgreSQL.\r\n",
-            "date_of_birth": "1988-10-05"
+            "date_of_birth": "1988-10-05",
+            "photo": ""
         }
     },
     {
