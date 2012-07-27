@@ -1,9 +1,11 @@
 from django.test import TestCase, client
+from django.core.urlresolvers import reverse
 from msizenko_42cc.apps.assignment.models import RequestLog
 from msizenko_42cc import settings
 
 
 USERNAME = 'msizenko'
+PASSWORD = 'qwerty'
 EMAIL = 'msizenko@gmail.com'
 
         
@@ -47,3 +49,18 @@ class ContextProcessorTest(TestCase):
         response = self.client.get('/')
         # check if reqest context contains settings        
         self.assertEqual(response.context['settings'], settings)
+        
+class PersonEditTest(TestCase):
+
+    def setUp(self):
+        self.client = client.Client()
+        
+    def person_edit_access_test(self):
+        response = self.client.get(reverse("assignment-person-edit"))
+        # if user not have access to edit, server redirect him to login page
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(self.client.login(username=USERNAME, password=PASSWORD))
+        response = self.client.get(reverse('assignment-person-edit'))
+        self.assertEqual(response.status_code, 200)
+        
+
