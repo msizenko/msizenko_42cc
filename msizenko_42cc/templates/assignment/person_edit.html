@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block head_title %}Edit person data{% endblock head_title %}
+
+{% block menu %}
+    <a href="{% url assignment-request-log %}">request's list</a>
+    <a href="{% url assignment-index %}">main</a>    
+    <a href="{% url assignment-logout %}">logout</a>    
+{% endblock %}
+    
+ 
+{% block header %}
+    Edit personal data
+{% endblock %}    
+
+{% block content %} 
+    <form enctype="multipart/form-data" method="post" action="{% url assignment-person-edit  %}">
+        {% csrf_token %}
+        {{ user_form.non_field_errors }}
+        {{ profile_form.non_field_errors }}
+        {{ contact_form.non_field_errors }}            
+        <div class="column">
+            <p>
+                {{ user_form.first_name.errors}}
+                {{ user_form.first_name.label_tag }}:
+                {{ user_form.first_name }}
+            </p>
+            <p>
+                {{ user_form.last_name.errors}}                  
+                {{ user_form.last_name.label_tag }}:
+                {{ user_form.last_name }}
+            </p>
+            <p>
+                {{ profile_form.date_of_birth.errors }}
+                {{ profile_form.date_of_birth.label_tag }}:
+                {{ profile_form.date_of_birth }}
+            </p>
+            <p>
+                {{ profile_form.photo.errors }}
+                {{ profile_form.photo.label_tag }}:
+                <input type="file" name="photo" id="id_photo" value="{{ user.userprofile.photo.url }}" onchange="readURL(this);"/>
+                <img id="profile-photo" width="250px" src="
+                    {% if user.userprofile.photo %}
+                        {{ user.userprofile.photo.url }}
+                    {% else %}        
+                        {% load staticfiles %}
+                        {% static 'images/profile.jpg' %}
+                    {% endif %}    
+                " />
+            </p>
+        </div>
+        <div class="column">
+            Contacts:
+            <p>
+                {{ user_form.email.errors }}
+                {{ user_form.email.label_tag }}:
+                {{ user_form.email }}
+            </p>
+            {{ contact_set.as_p }}
+            <p>
+                {{ profile_form.bio.errors}}
+                {{ profile_form.bio.label_tag }}
+                {{ profile_form.bio }}
+            </p>  
+        </div>
+        <div class="clear">&nbsp;</div>
+        <input type="submit" value="Save" />
+    </form>
+    <script type="text/javascript">
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $("#profile-photo").attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>        
+{% endblock  %}

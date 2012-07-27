@@ -1,33 +1,43 @@
 {% extends "base.html" %}
 
-{% block head_title %}42 Coffee Cups Test Assignment{% endblock head_title %}
+{% block head_title %}42 Coffee Cups Test Assignment{% endblock %}
 
+{% block menu %}
+    <a href="{% url assignment-index %}">main</a>
+    {% if user.is_authenticated %}
+        <a href="{% url assignment-person-edit %}">edit</a>        
+        <a href="{% url assignment-logout %}">logout</a>    
+    {% else %}    
+        <a href="{% url assignment-login %}">login</a>                
+    {% endif %}        
+{% endblock %}
+    
+{% block header %}
+    List last ten requests
+{% endblock %}    
+    
 {% block content %} 
-  <header id="header-main">List logged request:</header>
-  <section id='log'>
-    <table>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Method</th>
-          <th>Path</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for request in requests %}
-          <tr>
-            <td>{{ request.date|date:"Y-m-d H:i:s" }}</td>
-            <td>{{ request.method }}</td>
-            <td>{{ request.path }}</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>    
-  </section>
-  <nav>
-    <a href="{% url assignment-index %}">Back</a>
-  <nav>
-{% endblock content %}
+    <div>
+        <table  id="request-list">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Method</th>
+                    <th>Path</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for request in requests %}
+                    <tr>
+                        <td>{{ request.date|date:"Y-m-d H:i:s" }}</td>
+                        <td>{{ request.method }}</td>
+                        <td>{{ request.path }}</td>
+                    </tr>
+                    {% endfor %}
+            </tbody>
+        </table>    
+    </div>
+{% endblock %}
 
 
 

@@ -7,6 +7,7 @@ class UserProfile(models.Model):
     user = AutoOneToOneField(User, primary_key=True)
     date_of_birth = models.DateField(blank=True)
     bio = models.TextField()
+    photo = models.ImageField(upload_to='profiles', null=True, blank=True)
     
 class Contact(models.Model):
     TYPE_CHOICES = (
@@ -32,7 +33,7 @@ class RequestLog(models.Model):
     user_agent = models.CharField(max_length=255)
     
     class Meta:
-        ordering = ['date']
+        ordering = ['-date']
         verbose_name = "logged request"
         
     def __unicode__(self):
