@@ -8,4 +8,4 @@ django==1.4
 south==0.7.5
 django-nose==1.1
 django-annoying==0.7.6
-pil==1.1.7
+pillow==1.7.7

@@ -14,7 +14,7 @@ class UserProfileForm(ModelForm):
         model = UserProfile
         exclude = ('user',)
         
-ContactFormSet = inlineformset_factory(User, Contact)        
+ContactFormSet = inlineformset_factory(User, Contact, max_num=len(Contact.TYPE_CHOICES), extra=1)        
         
         
         

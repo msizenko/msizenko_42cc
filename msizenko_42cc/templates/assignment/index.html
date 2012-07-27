@@ -18,34 +18,40 @@
 {% endblock %}    
 
 {% block content %} 
-    <div id="brief-info">
-        <p id="date-of-birth">Date of birth: 
-            <time datetime="{{person.userprofile.date_of_birth|date:"Y-m-d"}}">
-                {{user.userprofile.date_of_birth}}
-            </time>
-        </p>
-        <address id="contacts">
-            <h1>Contacts:</h1>
-            {% if person.email %}
-                <p>
-                    <label for="email">email: </label>
-                    <span id="email">{{ person.email }}</span>
-                </p>
-            {% endif %}
-            {% for c in person.contact_set.all %}
-                <p>
-                    <label for="{{ c.type }}-{{ c.pk }}">{{ c.get_type_display }}: </label>
-                    <span id="{{ c.type }}-{{ c.pk }}">{{ c.value }}</span>
-                </p>
-            {% empty %}
-                <p>List of contacts is empty.</p>
-            {% endfor %}
-        </addres>  
+    <div class='column'>
+        <img width="250px" src="{{ person.userprofile.photo.url }}" />
     </div>
-    <div id='bio'>
-        <h1>Biography:</h1>
-            {{ person.userprofile.bio|linebreaks }}
+    <div class='column'>        
+        <div id="brief-info">
+            <p id="date-of-birth">Date of birth: 
+                <time datetime="{{person.userprofile.date_of_birth|date:"Y-m-d"}}">
+                    {{ person.userprofile.date_of_birth}}
+                </time>
+            </p>
+            <address id="contacts">
+                <h1>Contacts:</h1>
+                {% if person.email %}
+                    <p>
+                        <label for="email">email: </label>
+                        <span id="email">{{ person.email }}</span>
+                    </p>
+                {% endif %}
+                {% for c in person.contact_set.all %}
+                    <p>
+                        <label for="{{ c.type }}-{{ c.pk }}">{{ c.get_type_display }}: </label>
+                        <span id="{{ c.type }}-{{ c.pk }}">{{ c.value }}</span>
+                    </p>
+                {% empty %}
+                    <p>List of contacts is empty.</p>
+                {% endfor %}
+             </addres>  
+        </div>
+        <div id='bio'>
+            <h1>Biography:</h1>
+                {{ person.userprofile.bio|linebreaks }}
+        </div>
     </div>
+
 {% endblock  %}
 
 

@@ -38,16 +38,12 @@
     font-size: 1.25em;
 }
 
-#brief-info {
-    margin: 1em auto;
-    width: 50%;
-}
-
 #brief-info h1 {
     margin: .5em 0 .25em;
 }
 
 #bio h1 {
+    margin-top: 2em;    
     margin-bottom: 1em;
 }
 
@@ -84,4 +80,17 @@
 #request-list th {
     padding: 1em;
     font-weight: 800;
+}
+
+.column {
+    width: 50%;
+    float: left;
+}
+
+.clear {
+    clear: both;
+}
+
+input[type='file'] {
+    display: inline;
 }

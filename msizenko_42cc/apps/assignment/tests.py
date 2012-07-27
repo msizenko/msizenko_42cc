@@ -62,5 +62,8 @@ class PersonEditTest(TestCase):
         self.assertTrue(self.client.login(username=USERNAME, password=PASSWORD))
         response = self.client.get(reverse('assignment-person-edit'))
         self.assertEqual(response.status_code, 200)
+
+
+        
         
 
