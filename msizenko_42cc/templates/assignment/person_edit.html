@@ -38,7 +38,7 @@
             <p>
                 {{ profile_form.photo.errors }}
                 {{ profile_form.photo.label_tag }}:
-                <input type="file" name="photo" id="id_photo" value="{{ user.userprofile.photo.url }}" onchange="readURL(this);"/>
+                <input type="file" name="photo" id="id_photo" onchange="readURL(this);"/>
                 <img id="profile-photo" width="250px" src="
                     {% if user.userprofile.photo %}
                         {{ user.userprofile.photo.url }}

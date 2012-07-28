@@ -19,7 +19,14 @@
 
 {% block content %} 
     <div class='column'>
-        <img width="250px" src="{{ person.userprofile.photo.url }}" />
+        <img id="profile-photo" width="250px" src="
+                    {% if person.userprofile.photo %}
+                        {{ person.userprofile.photo.url }}
+                    {% else %}        
+                        {% load staticfiles %}
+                        {% static 'images/profile.jpg' %}
+                    {% endif %}    
+                " />
     </div>
     <div class='column'>        
         <div id="brief-info">
