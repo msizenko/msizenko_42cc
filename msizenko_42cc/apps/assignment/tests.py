@@ -4,8 +4,8 @@ from msizenko_42cc.apps.assignment.models import RequestLog
 from msizenko_42cc import settings
 
 
-USERNAME = 'msizenko'
-PASSWORD = 'qwerty'
+USERNAME = 'admin'
+PASSWORD = 'admin'
 EMAIL = 'msizenko@gmail.com'
 
         

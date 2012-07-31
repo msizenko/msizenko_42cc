@@ -7,7 +7,7 @@ from msizenko_42cc.apps.assignment.forms import UserForm, UserProfileForm, Conta
 
     
 def index(request):
-    person = User.objects.get_or_create(username='msizenko')[0]
+    person = User.objects.get_or_create(username='admin')[0]
     return render_to_response("assignment/index.html",
                               {'person': person},
                               context_instance=RequestContext(request))

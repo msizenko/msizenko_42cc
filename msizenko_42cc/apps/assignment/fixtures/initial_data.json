@@ -3,7 +3,7 @@
         "pk": 1,
         "model": "auth.user",
         "fields": {
-            "username": "msizenko",
+            "username": "admin",
             "first_name": "Marina",
             "last_name": "Sizenko",
             "is_active": true,
@@ -12,7 +12,7 @@
             "last_login": "2012-07-23T08:13:00.795Z",
             "groups": [],
             "user_permissions": [],
-            "password": "pbkdf2_sha256$10000$nnRVilNhJzL4$DbZspkLd37X3eOkL96ojjLTLOwNS3GbhtQlvOG/8lKQ=",
+            "password": "pbkdf2_sha256$10000$burq8llXeTTs$a1hI+4kbUv5pF2WqQrOFF+5nLrL4ZZvcq12XNm9QjKA=",
             "email": "msizenko@gmail.com",
             "date_joined": "2012-07-20T07:18:56.607Z"
         }
