@@ -27,7 +27,6 @@ class PersonTest(TestCase):
     def user_page_test(self):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, USERNAME)
         self.assertContains(response, EMAIL)        
         
 class MiddlewareRequestTest(TestCase):
