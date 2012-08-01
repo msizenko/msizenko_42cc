@@ -13,8 +13,13 @@
     Edit personal data
 {% endblock %}    
 
+{% block links %}
+    {{ block.super }}
+    {{ profile_form.media.css }}
+{% endblock %}    
+
 {% block content %} 
-    <form enctype="multipart/form-data" method="post" action="{% url assignment-person-edit  %}">
+    <form id="person-data" enctype="multipart/form-data" method="post" action="{% url assignment-person-edit  %}">
         {% csrf_token %}
         {{ user_form.non_field_errors }}
         {{ profile_form.non_field_errors }}
@@ -44,7 +49,7 @@
                         {{ user.userprofile.photo.url }}
                     {% else %}        
                         {% load staticfiles %}
-                        {% static 'images/profile.jpg' %}
+                        {% static 'css/images/profile.jpg' %}
                     {% endif %}    
                 " />
             </p>
@@ -64,9 +69,60 @@
             </p>  
         </div>
         <div class="clear">&nbsp;</div>
-        <input type="submit" value="Save" />
+        <p id="message">&nbsp;</p>
+        <input id="save-person" type="submit" value="Save" />
     </form>
+    
+
+{% endblock  %}
+    
+{% block scripts %}
+    {{ block.super }}
+    {{ profile_form.media.js }}
+    <script src="{{ STATIC_URL }}js/jquery.form.js"></script> 
+    
     <script type="text/javascript">
+        $(".datepicker").datepicker({ dateFormat: 'yy-mm-dd'});
+        
+        $(document).ready(function() { 
+            var options = {
+                    target: '#person-data',
+                    dataType: 'json',
+                    beforeSubmit: before,
+                    success: after
+                }
+
+            $('#person-data').ajaxForm(options);
+                
+        }) 
+        
+        function before(formData, jqForm, options) {
+            jqForm.find('*').attr('disabled', true);
+            $('.errorlist').remove();
+            $('#save-person').attr('value', 'Saving...');
+            $('#message').text('');        
+        }
+        
+        function after(responseText, statusText, xhr, $form){
+            var html = '';
+            
+            $form.find('*').removeAttr('disabled');
+            $('#save-person').attr('value', 'Save');
+            if (responseText.success) {
+                $('#message').text('Changes have been saved');        
+            } else {
+                errors = responseText.errors
+                for (var key in errors) {
+                    html = '<ul class="errorlist">';
+                    for(i=errors[key].length; i--;) {
+                        html += '<li>' + errors[key][i] + '</li>';
+                    }        
+                    html += '</ul>';        
+                    $('#id_' + key).parent().prepend(html);
+                }
+            }
+        }
+  
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
@@ -75,8 +131,9 @@
                     $("#profile-photo").attr('src', e.target.result);
                 }
 
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
+               reader.readAsDataURL(input.files[0]);
+           }
+       }
     </script>        
-{% endblock  %}
+
+{% endblock %}        

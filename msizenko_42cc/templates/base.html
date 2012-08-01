@@ -4,10 +4,12 @@
 <head>
     <title>{% block head_title %}{% endblock %}</title>
     <meta charset=utf-8 />
+    {% block links %}
     <link rel="stylesheet" href="/static/css/style.css" />
     <!--[if lt IE 9]>
         <script type="text/javascript" src="/media/js/fixes/ie-html5.js"></script>
     <![endif]-->
+    {% endblock %}
 </head>
 <body>
 <div id="container">

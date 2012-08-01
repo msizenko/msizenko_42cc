@@ -5,7 +5,7 @@ from annoying.fields import AutoOneToOneField
 
 class UserProfile(models.Model):
     user = AutoOneToOneField(User, primary_key=True)
-    date_of_birth = models.DateField(blank=True)
+    date_of_birth = models.DateField(null=True, blank=True)
     bio = models.TextField()
     photo = models.ImageField(upload_to='profiles', null=True, blank=True)
     
