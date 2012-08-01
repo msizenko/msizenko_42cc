@@ -1,6 +1,7 @@
 from django.test import TestCase, client
 from django.core.urlresolvers import reverse
 from msizenko_42cc.apps.assignment.models import RequestLog
+from msizenko_42cc.apps.assignment.forms import CalendarWidget
 from msizenko_42cc import settings
 
 
@@ -62,7 +63,13 @@ class PersonEditTest(TestCase):
         response = self.client.get(reverse('assignment-person-edit'))
         self.assertEqual(response.status_code, 200)
 
+class CalendarWidgetTest(TestCase):
 
+    def calendar_widget_test(self):
+        calendar_widget = CalendarWidget()
+        self.assertEqual(calendar_widget.render('date_of_birth', '1988-10-05'),
+            u'<input type="text" class="datepicker" value="1988-10-05" name="date_of_birth" />')
+        
         
         
 
