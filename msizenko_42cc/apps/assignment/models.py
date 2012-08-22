@@ -39,3 +39,15 @@ class RequestLog(models.Model):
     def __unicode__(self):
         return '%s %s %s' %(self.date, self.method, self.path)
         
+class DBLog(models.Model):
+    date = models.DateTimeField(auto_now_add=True)
+    module = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    action = models.CharField(max_length=10)
+    
+    class Meta:
+        ordering = ['-date']
+    
+    def __unicode__(self):
+        return '%s %s %s' %(self.date, self.name, self.action)
+        
