@@ -1,7 +1,9 @@
 from django.test import TestCase, client
 from django import template
+from django.core import management
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+
 from msizenko_42cc.apps.assignment.models import RequestLog
 from msizenko_42cc.apps.assignment.forms import CalendarWidget
 from msizenko_42cc import settings
@@ -83,3 +85,10 @@ class AdminEditTagTest(TestCase):
         self.context = template.Context({'user': self.user})
         rendered = self.template.render(self.context)
         self.assertEqual(rendered, u'<a href="/admin/auth/user/1/">user admin</a>\n')
+        
+class PrintModelsCommandTest(TestCase):
+
+    def printmodels_command_test(self):
+        commands = management.get_commands()
+        self.assertIn('printmodels', commands)
+        
