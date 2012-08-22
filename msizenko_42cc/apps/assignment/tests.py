@@ -1,4 +1,6 @@
 from django.test import TestCase, client
+from django import template
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from msizenko_42cc.apps.assignment.models import RequestLog
 from msizenko_42cc.apps.assignment.forms import CalendarWidget
@@ -8,7 +10,6 @@ from msizenko_42cc import settings
 USERNAME = 'admin'
 PASSWORD = 'admin'
 EMAIL = 'msizenko@gmail.com'
-
         
 class PersonTest(TestCase):
     
@@ -16,7 +17,7 @@ class PersonTest(TestCase):
         self.client = client.Client()
     
     def create_test(self):
-        from django.contrib.auth.models import User
+
         # user should been created from fixtures
         self.assertIsNotNone(User.objects.get(username=USERNAME))
         user = User.objects.get(username=USERNAME)
@@ -70,6 +71,15 @@ class CalendarWidgetTest(TestCase):
         self.assertEqual(calendar_widget.render('date_of_birth', '1988-10-05'),
             u'<input type="text" class="datepicker" value="1988-10-05" name="date_of_birth" />')
         
-        
-        
+class AdminEditTagTest(TestCase):
 
+    def setUp(self):
+        self.user = User.objects.get(username=USERNAME)
+        
+    def edit_link_test(self):
+        self.template = template.Template('{% load edit_link from assignment_edit_link %}' \
+                                          '{% edit_link user "user admin" %}'
+        )
+        self.context = template.Context({'user': self.user})
+        rendered = self.template.render(self.context)
+        self.assertEqual(rendered, u'<a href="/admin/auth/user/1/">user admin</a>\n')
