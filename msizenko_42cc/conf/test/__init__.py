@@ -13,6 +13,9 @@ ROOT_URLCONF = 'msizenko_42cc.conf.test.urls'
 
 INSTALLED_APPS += (
     'django_nose',
+    'django.contrib.admin',
+    'django.contrib.admindocs',
+
 )
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'

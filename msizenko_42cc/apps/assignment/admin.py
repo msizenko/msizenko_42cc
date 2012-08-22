@@ -1,13 +1,19 @@
 from django.contrib import admin
-from .models import UserProfile, Contact
+from django.contrib.auth.models import User
+from msizenko_42cc.apps.assignment.models import UserProfile, Contact
+
+
+class UserProfileInline(admin.StackedInline):
+    model = UserProfile
 
 class ContactInline(admin.StackedInline):
     model = Contact
     extra = 1
-
-class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', )
-    inlines = [ContactInline]
     
-admin.site.register(UserProfile, UserProfileAdmin)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('username', )
+    inlines = [UserProfileInline, ContactInline]
+    
+admin.site.unregister(User)    
+admin.site.register(User, UserAdmin)
     
