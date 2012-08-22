@@ -5,6 +5,8 @@
 {% block menu %}
     <a href="{% url assignment-index %}">main</a>
     {% if user.is_authenticated %}
+        {% load edit_link from assignment_edit_link %}
+        {% edit_link user "user admin" %}
         <a href="{% url assignment-person-edit %}">edit</a>        
         <a href="{% url assignment-logout %}">logout</a>    
     {% else %}    

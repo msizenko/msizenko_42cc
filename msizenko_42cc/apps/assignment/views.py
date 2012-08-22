@@ -45,8 +45,3 @@ def edit(request):
                               'profile_form': profile_form,
                               'contact_set': contact_set},
                                context_instance=RequestContext(request))
-
-
-    
-    
-    
