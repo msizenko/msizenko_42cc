@@ -1,0 +1,3 @@
+#!/bin/bash
+
+./manage.py printmodels 2>>$(date -d "today" +"%Y-%m-%d").dat
