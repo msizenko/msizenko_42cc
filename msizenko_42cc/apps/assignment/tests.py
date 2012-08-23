@@ -4,7 +4,7 @@ from django.core import management
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
-from msizenko_42cc.apps.assignment.models import RequestLog
+from msizenko_42cc.apps.assignment.models import RequestLog, DBLog
 from msizenko_42cc.apps.assignment.forms import CalendarWidget
 from msizenko_42cc import settings
 
@@ -92,3 +92,22 @@ class PrintModelsCommandTest(TestCase):
         commands = management.get_commands()
         self.assertIn('printmodels', commands)
         
+class DBLoggerTest(TestCase):
+    
+    def db_logger_test(self):
+        c1 = DBLog.objects.count()
+        user = User.objects.create(username='anonymous', email='anonymous@msizenko_42cc.com')
+        c2 = DBLog.objects.count()
+        # If user was created, new record appears in DBLog table  
+        self.assertGreater(c2, c1)
+        
+        user.first_name = 'anonymous'
+        user.save()
+        c3 = DBLog.objects.count()
+        # If user was edited, new record appears in DBLog table  
+        self.assertGreater(c3, c2)
+
+        user.delete()
+        c4 = DBLog.objects.count()
+        # If user was deleted, new record appears in DBLog table  
+        self.assertGreater(c4, c3)
