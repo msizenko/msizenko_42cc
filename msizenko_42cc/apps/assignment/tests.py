@@ -93,23 +93,21 @@ class PrintModelsCommandTest(TestCase):
         self.assertIn('printmodels', commands)
         
 class DBLoggerTest(TestCase):
-
+    
     def db_logger_test(self):
-        c1 = DBLog.objects.all().count()
-        user = User.objects.create(name='anonymous', email='anonymous@msizenko_42cc.com')
-        c2 = DBLog.objects.all().count()
+        c1 = DBLog.objects.count()
+        user = User.objects.create(username='anonymous', email='anonymous@msizenko_42cc.com')
+        c2 = DBLog.objects.count()
         # If user was created, new record appears in DBLog table  
         self.assertGreater(c2, c1)
         
         user.first_name = 'anonymous'
         user.save()
-        c3 = DBLog.objects.all().count()
+        c3 = DBLog.objects.count()
         # If user was edited, new record appears in DBLog table  
         self.assertGreater(c3, c2)
 
         user.delete()
-        c4 = DBLog.objects.all().count()
+        c4 = DBLog.objects.count()
         # If user was deleted, new record appears in DBLog table  
         self.assertGreater(c4, c3)
-
-        
