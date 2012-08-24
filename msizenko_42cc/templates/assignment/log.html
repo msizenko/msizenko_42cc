@@ -15,7 +15,7 @@
 {% endblock %}
     
 {% block header %}
-    List last ten requests
+    Last ten requests list
 {% endblock %}    
     
 {% block content %} 
@@ -23,6 +23,7 @@
         <table  id="request-list">
             <thead>
                 <tr>
+                    <th>Priority</th>
                     <th>Date</th>
                     <th>Method</th>
                     <th>Path</th>
@@ -31,6 +32,7 @@
             <tbody>
                 {% for request in requests %}
                     <tr>
+                        <td>{{ request.priority }}</td>                      
                         <td>{{ request.date|date:"Y-m-d H:i:s" }}</td>
                         <td>{{ request.method }}</td>
                         <td>{{ request.path }}</td>

@@ -111,3 +111,14 @@ class DBLoggerTest(TestCase):
         c4 = DBLog.objects.count()
         # If user was deleted, new record appears in DBLog table  
         self.assertGreater(c4, c3)
+
+class PrioritedReqestLogTest(TestCase):
+    
+    def setUp(self):
+        self.client = client.Client()
+    
+    def priority_test(self):
+        response = self.client.get(reverse('assignment-index'))
+        self.assertEqual(response.status_code, 200)
+        log = RequestLog.objects.all()[0]
+        self.assertEqual(log.priority, 0)        
