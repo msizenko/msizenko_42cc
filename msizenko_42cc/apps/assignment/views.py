@@ -1,10 +1,13 @@
 import json
+import itertools
 
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from django.http import HttpResponse
+from django.views.generic import ListView
 from django.contrib.auth.models import User
+from msizenko_42cc.apps.assignment.models import RequestLog
 
 from msizenko_42cc.apps.assignment.forms import UserForm, UserProfileForm, ContactFormSet
 
@@ -45,3 +48,16 @@ def edit(request):
                               'profile_form': profile_form,
                               'contact_set': contact_set},
                                context_instance=RequestContext(request))
+
+class RequestLogListView(ListView):
+    LIST_SIZE = 10
+    PRIORITY = 0
+
+    context_object_name='requests'
+    template_name='assignment/log.html'
+    
+    def get_queryset(self):
+        priority = self.request.GET.get('priority', self.PRIORITY)
+        priorited = RequestLog.objects.filter(priority=priority).all()[:self.LIST_SIZE]
+        general = RequestLog.objects.exclude(priority=priority).all()[:self.LIST_SIZE - priorited.count()]
+        return itertools.chain(priorited, general)
