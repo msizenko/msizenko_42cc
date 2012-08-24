@@ -32,9 +32,10 @@ class RequestLog(models.Model):
     path = models.CharField(max_length=255)
     user = models.ForeignKey(User, blank=True,  null=True)
     user_agent = models.CharField(max_length=255)
+    priority = models.IntegerField(default=0)
     
     class Meta:
-        ordering = ['-date']
+        ordering = ['-priority','-date']
         verbose_name = "logged request"
         
     def __unicode__(self):
