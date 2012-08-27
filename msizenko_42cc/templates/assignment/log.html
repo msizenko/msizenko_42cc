@@ -23,7 +23,7 @@
         <table  id="request-list">
             <thead>
                 <tr>
-                    <th>Priority</th>
+                    <th><a href="?priority={{ priority }}"></th>
                     <th>Date</th>
                     <th>Method</th>
                     <th>Path</th>
@@ -32,7 +32,7 @@
             <tbody>
                 {% for request in requests %}
                     <tr>
-                        <td>{{ request.priority }}</td>                      
+                        <td><input type="text" id="id_{{ request.pk }}" maxlength="3" size="1" value="{{ request.priority }}"/></td>                      
                         <td>{{ request.date|date:"Y-m-d H:i:s" }}</td>
                         <td>{{ request.method }}</td>
                         <td>{{ request.path }}</td>
@@ -42,6 +42,13 @@
         </table>    
     </div>
 {% endblock %}
+    
+{% block footer %}
+{% endblock %}    
 
-
-
+{% block scripts %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}js/csrf.js"></script>         
+    <script src="{{ STATIC_URL }}js/priority_edit.js"></script>     
+{% endblock %}        
+    
