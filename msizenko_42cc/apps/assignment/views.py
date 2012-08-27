@@ -1,27 +1,26 @@
 import json
 import itertools
 
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.template import RequestContext
 from django.http import HttpResponse
-from django.views.generic import ListView
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.contrib.auth.models import User
 from msizenko_42cc.apps.assignment.models import RequestLog
 
 from msizenko_42cc.apps.assignment.forms import UserForm, UserProfileForm, ContactFormSet
 
-    
+
 def index(request):
     person = User.objects.get_or_create(username='admin')[0]
-    return render_to_response("assignment/index.html",
-                              {'person': person},
-                              context_instance=RequestContext(request))
-    
+    return render(request,
+                  "assignment/index.html",
+                  {'person': person})
+
 @login_required    
 def edit(request):
     person = User.objects.get(pk=request.user.pk)
-    if request.is_ajax() and request.method == 'POST':
+    if request.method == 'POST':
         user_form = UserForm(request.POST, instance=person)
         profile_form = UserProfileForm(request.POST, request.FILES, instance=person.userprofile)
         contact_set = ContactFormSet(request.POST, instance=person)
@@ -38,26 +37,36 @@ def edit(request):
                     key = 'contact_set-'+ str(i) + '-' + field
                     errors[key] = dict_errors[field]
             response['errors'] = errors
-        return HttpResponse(json.dumps(response), mimetype='application/json')
+        if request.is_ajax():
+            return HttpResponse(json.dumps(response), mimetype='application/json')
     else:
         user_form = UserForm(instance=person)
         profile_form = UserProfileForm(instance=person.userprofile)
         contact_set = ContactFormSet(instance=person)
-        return render_to_response("assignment/person_edit.html", {
-                              'user_form': user_form,
-                              'profile_form': profile_form,
-                              'contact_set': contact_set},
-                               context_instance=RequestContext(request))
+    return render(request,
+                  "assignment/person_edit.html",
+                  {'user_form': user_form,
+                   'profile_form': profile_form,
+                   'contact_set': contact_set})
 
-class RequestLogListView(ListView):
+@ensure_csrf_cookie
+def request_log(request):
     LIST_SIZE = 10
-    PRIORITY = 0
+    priority = request.GET.get('priority', '-priority')
+    requests = RequestLog.objects.order_by(priority).all()[:LIST_SIZE]
+    priority = 'priority' if priority == '-priority' else '-priority'
+    return render(request,
+                  'assignment/log.html',
+                  {'requests': requests, 'priority': priority})
 
-    context_object_name='requests'
-    template_name='assignment/log.html'
-    
-    def get_queryset(self):
-        priority = self.request.GET.get('priority', self.PRIORITY)
-        priorited = RequestLog.objects.filter(priority=priority).all()[:self.LIST_SIZE]
-        general = RequestLog.objects.exclude(priority=priority).all()[:self.LIST_SIZE - priorited.count()]
-        return itertools.chain(priorited, general)
+def priority_edit(request):
+    if request.POST:
+        try:
+            log = RequestLog.objects.get(pk=request.POST.get('pk', None))
+            log.priority = int(request.POST.get('priority', None))
+            log.save();
+            return HttpResponse()
+        except ValueError:
+            return HttpResponse(status='400')
+    else:
+        return HttpResponse(status='400')

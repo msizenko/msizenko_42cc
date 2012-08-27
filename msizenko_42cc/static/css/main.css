@@ -4,8 +4,16 @@
 }
 
 #menu {
-    padding: 1em;
     background-color: #333;
+}
+
+footer {
+    border-top: 2px solid #000;
+}
+
+#menu,
+footer {
+    padding: 1em 0;
     font-size: 1.4em;
     font-weight: 800;
 }
@@ -19,7 +27,8 @@
     color: #fff;
 }
 
-#menu a:after {
+#menu a:after,
+footer a:after {
     content: '/'
 }
 
@@ -85,6 +94,14 @@
 .column {
     width: 50%;
     float: left;
+}
+
+.column > p {
+    margin: .5em 0;
+}
+
+.column > p > strong {
+    font-size: 1.1em;
 }
 
 .clear {
