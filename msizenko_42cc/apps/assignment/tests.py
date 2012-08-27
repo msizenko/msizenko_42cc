@@ -68,6 +68,36 @@ class PersonEditTest(TestCase):
         response = self.client.get(reverse('assignment-person-edit'))
         self.assertEqual(response.status_code, 200)
 
+    def person_edit_save_test(self):
+        self.assertTrue(self.client.login(username=USERNAME, password=PASSWORD))
+        post = {
+            u'email': [u'msizenko@gmail.com'],            
+            # Changed first name to Test Marina
+            u'first_name': [u'Test Marina'],
+            # Changed last name to Test Sizenko
+            u'last_name': [u'Test Sizenko'],
+
+            u'contact_set-INITIAL_FORMS': [u'0'],
+            u'contact_set-MAX_NUM_FORMS': [u'3'],            
+            u'contact_set-TOTAL_FORMS': [u'1'],            
+
+            u'contact_set-0-id': [u''],
+            u'contact_set-0-type': [u''],            
+            u'contact_set-0-user': [u'2'],            
+            u'contact_set-0-value': [u''],
+
+            u'date_of_birth': [u'1988-10-05'],
+            # Changed bio to bio
+            u'bio': [u'bio'],
+            u'photo': [u'']
+        }
+        response = self.client.post(reverse('assignment-person-edit'), post)
+        self.assertEqual(response.status_code, 200)
+        user = User.objects.get(username=USERNAME)
+        self.assertEqual(user.first_name, 'Test Marina')        
+        self.assertEqual(user.last_name, 'Test Sizenko')                
+        self.assertEqual(user.userprofile.bio, 'bio')
+
 class CalendarWidgetTest(TestCase):
 
     def calendar_widget_test(self):
