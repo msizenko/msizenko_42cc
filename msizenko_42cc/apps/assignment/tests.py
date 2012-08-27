@@ -38,6 +38,13 @@ class MiddlewareRequestTest(TestCase):
         self.client.get(reverse('assignment-index'))
         self.assertIsNotNone(RequestLog.objects.get(method='GET'))
 
+    def request_list_page_test(self):
+        response = self.client.get(reverse('assignment-request-log'))
+        self.assertEqual(response.status_code, 200)
+        logs = RequestLog.objects.all()[:10]
+        for log in logs:
+            self.assertContains(response, log.path)
+
 class ContextProcessorTest(TestCase):
 
     def setUp(self):
