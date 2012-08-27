@@ -20,7 +20,7 @@ def index(request):
 @login_required    
 def edit(request):
     person = User.objects.get(pk=request.user.pk)
-    if request.is_ajax() and request.method == 'POST':
+    if request.method == 'POST':
         user_form = UserForm(request.POST, instance=person)
         profile_form = UserProfileForm(request.POST, request.FILES, instance=person.userprofile)
         contact_set = ContactFormSet(request.POST, instance=person)
@@ -37,16 +37,17 @@ def edit(request):
                     key = 'contact_set-'+ str(i) + '-' + field
                     errors[key] = dict_errors[field]
             response['errors'] = errors
-        return HttpResponse(json.dumps(response), mimetype='application/json')
+        if request.is_ajax():
+            return HttpResponse(json.dumps(response), mimetype='application/json')
     else:
         user_form = UserForm(instance=person)
         profile_form = UserProfileForm(instance=person.userprofile)
         contact_set = ContactFormSet(instance=person)
-        return render(request,
-                      "assignment/person_edit.html", {
-                          'user_form': user_form,
-                          'profile_form': profile_form,
-                          'contact_set': contact_set})
+    return render(request,
+                  "assignment/person_edit.html", {
+                      'user_form': user_form,
+                      'profile_form': profile_form,
+                      'contact_set': contact_set})
 
 class RequestLogListView(ListView):
     LIST_SIZE = 10
