@@ -13,13 +13,13 @@
 </head>
 <body>
 <div id="container">
-  <nav id="menu">
-    <div id="menu-list">
-        {% block menu %}
-        {% endblock %}
-    </div>
-    <div>&nbsp;</div>
-  </nav>    
+    <nav id="menu">
+        <div id="menu-list">
+            {% block menu %}
+            {% endblock %}
+        </div>
+        <div>&nbsp;</div>
+    </nav>    
     <header id="header">
         {% block header %}
         {% endblock %}
@@ -28,6 +28,12 @@
         {% block content %}
         {% endblock %}
     </div>
+    <div class="clear">&nbsp;</div>
+    <footer>
+        {% block footer %}
+            <a href="{% url assignment-request-log %}">request's list</a>
+        {% endblock %}
+    </footer>  
 </div>
 {% block scripts %}
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>

@@ -3,7 +3,6 @@
 {% block head_title %}42 Coffee Cups Test Assignment{% endblock head_title %}
 
 {% block menu %}
-    <a href="{% url assignment-request-log %}">request's list</a>
     {% if user.is_authenticated %}
         {% load edit_link from assignment_edit_link %}
         {% edit_link user "user admin" %}
@@ -21,6 +20,14 @@
 
 {% block content %} 
     <div class='column'>
+        <p><strong>First name:</strong> {{ person.first_name }}</p>
+        <p><strong>Last name:</strong> {{ person.last_name }}</p>
+        <p id="date-of-birth"><strong>Date of birth:</strong> 
+            <time datetime="{{person.userprofile.date_of_birth|date:"Y-m-d"}}">
+                {{ person.userprofile.date_of_birth}}
+            </time>
+        </p>
+        <p><strong>Photo:</strong></p>
         <img id="profile-photo" width="250px" src="
                     {% if person.userprofile.photo %}
                         {{ person.userprofile.photo.url }}
@@ -32,11 +39,6 @@
     </div>
     <div class='column'>        
         <div id="brief-info">
-            <p id="date-of-birth">Date of birth: 
-                <time datetime="{{person.userprofile.date_of_birth|date:"Y-m-d"}}">
-                    {{ person.userprofile.date_of_birth}}
-                </time>
-            </p>
             <address id="contacts">
                 <h1>Contacts:</h1>
                 {% if person.email %}

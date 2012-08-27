@@ -1,9 +1,8 @@
 import json
 import itertools
 
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.template import RequestContext
 from django.http import HttpResponse
 from django.views.generic import ListView
 from django.contrib.auth.models import User
@@ -11,13 +10,13 @@ from msizenko_42cc.apps.assignment.models import RequestLog
 
 from msizenko_42cc.apps.assignment.forms import UserForm, UserProfileForm, ContactFormSet
 
-    
+
 def index(request):
     person = User.objects.get_or_create(username='admin')[0]
-    return render_to_response("assignment/index.html",
-                              {'person': person},
-                              context_instance=RequestContext(request))
-    
+    return render(request,
+                  "assignment/index.html",
+                  {'person': person})
+
 @login_required    
 def edit(request):
     person = User.objects.get(pk=request.user.pk)
@@ -43,11 +42,11 @@ def edit(request):
         user_form = UserForm(instance=person)
         profile_form = UserProfileForm(instance=person.userprofile)
         contact_set = ContactFormSet(instance=person)
-        return render_to_response("assignment/person_edit.html", {
-                              'user_form': user_form,
-                              'profile_form': profile_form,
-                              'contact_set': contact_set},
-                               context_instance=RequestContext(request))
+        return render(request,
+                      "assignment/person_edit.html", {
+                          'user_form': user_form,
+                          'profile_form': profile_form,
+                          'contact_set': contact_set})
 
 class RequestLogListView(ListView):
     LIST_SIZE = 10
@@ -55,7 +54,7 @@ class RequestLogListView(ListView):
 
     context_object_name='requests'
     template_name='assignment/log.html'
-    
+
     def get_queryset(self):
         priority = self.request.GET.get('priority', self.PRIORITY)
         priorited = RequestLog.objects.filter(priority=priority).all()[:self.LIST_SIZE]
